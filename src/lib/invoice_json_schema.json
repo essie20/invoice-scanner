@@ -1,0 +1,279 @@
+{
+  "type": "object",
+  "properties": {
+    "invoice": {
+      "type": "object",
+      "properties": {
+        "company": {
+          "type": "string",
+          "description": "Name of the company issuing the invoice",
+          "example": "East Repair Inc."
+        },
+        "customer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Customer's full name",
+              "example": "John Smith"
+            },
+            "billing_address": {
+              "type": "string",
+              "description": "Customer's billing address",
+              "example": "New York"
+            },
+            "shipping_address": {
+              "type": "string",
+              "description": "Customer's shipping address",
+              "example": "Cambridge, MA"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "description": "Customer's email address"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Customer's phone number"
+            }
+          },
+          "propertyOrdering": [
+            "name",
+            "billing_address",
+            "shipping_address",
+            "email",
+            "phone"
+          ],
+          "required": [
+            "name"
+          ]
+        },
+        "details": {
+          "type": "object",
+          "properties": {
+            "issue_date": {
+              "type": "string",
+              "format": "date",
+              "description": "Date the invoice was issued (YYYY-MM-DD format). Convert any format to -> YYYY-MM-DD",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "example": "2024-02-11"
+            },
+            "invoice_number": {
+              "type": "string",
+              "description": "Unique invoice identifier",
+              "example": "INV-2024-001"
+            },
+            "due_date": {
+              "type": "string",
+              "format": "date",
+              "description": "Date payment is due (YYYY-MM-DD format)",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+              "example": "2024-02-26"
+            },
+            "po_number": {
+              "type": "string",
+              "description": "Purchase order number if applicable"
+            }
+          },
+          "propertyOrdering": [
+            "issue_date",
+            "invoice_number",
+            "due_date",
+            "po_number"
+          ],
+          "required": [
+            "issue_date",
+            "invoice_number"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "description": "Description of the item or service",
+                "example": "Front and rear brake cables"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "Quantity of items",
+                "example": 1
+              },
+              "unit_price": {
+                "type": "number",
+                "description": "Price per unit",
+                "example": 100
+              },
+              "total_price": {
+                "type": "number",
+                "description": "Total price for this line item (quantity × unit_price)",
+                "example": 100
+              },
+              "tax_rate": {
+                "type": "number",
+                "description": "Tax rate percentage for this item",
+                "maximum": 100
+              }
+            },
+            "propertyOrdering": [
+              "description",
+              "quantity",
+              "unit_price",
+              "total_price",
+              "tax_rate"
+            ],
+            "required": [
+              "description",
+              "quantity",
+              "unit_price",
+              "total_price"
+            ]
+          },
+          "minItems": 1
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Sum of all line items before tax",
+          "example": 145
+        },
+        "sales_tax": {
+          "type": "object",
+          "properties": {
+            "rate": {
+              "type": "number",
+              "description": "Tax rate as a percentage",
+              "maximum": 100,
+              "example": 6.25
+            },
+            "amount": {
+              "type": "number",
+              "description": "Tax amount in currency",
+              "example": 9.06
+            }
+          },
+          "propertyOrdering": [
+            "rate",
+            "amount"
+          ]
+        },
+        "discount": {
+          "type": "object",
+          "properties": {
+            "rate": {
+              "type": "number",
+              "description": "Discount rate as a percentage",
+              "maximum": 100
+            },
+            "amount": {
+              "type": "number",
+              "description": "Discount amount in currency"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the discount"
+            }
+          },
+          "propertyOrdering": [
+            "rate",
+            "amount",
+            "description"
+          ],
+          "description": "Discount applied to the invoice"
+        },
+        "total_due": {
+          "type": "number",
+          "description": "Final amount due including tax and discounts",
+          "example": 154.06
+        },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "payment_due": {
+              "type": "string",
+              "description": "Payment terms description",
+              "example": "15 days"
+            },
+            "payable_to": {
+              "type": "string",
+              "description": "Entity to whom payment should be made",
+              "example": "East Repair Inc."
+            },
+            "late_fee": {
+              "type": "string",
+              "description": "Late fee policy"
+            }
+          },
+          "propertyOrdering": [
+            "payment_due",
+            "payable_to",
+            "late_fee"
+          ]
+        },
+        "signature": {
+          "type": "string",
+          "description": "Digital or physical signature",
+          "example": "John Smith"
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Brief description of the invoice purpose",
+          "example": "Formal request for payment for bicycle repair services rendered."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes or comments"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code",
+          "pattern": "^[A-Z]{3}$",
+          "example": "USD"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "sent",
+            "paid",
+            "overdue",
+            "cancelled"
+          ],
+          "description": "Current status of the invoice",
+          "example": "draft"
+        }
+      },
+      "propertyOrdering": [
+        "company",
+        "customer",
+        "details",
+        "items",
+        "subtotal",
+        "sales_tax",
+        "discount",
+        "total_due",
+        "terms",
+        "signature",
+        "purpose",
+        "notes",
+        "currency",
+        "status"
+      ],
+      "required": [
+        "company",
+        "customer",
+        "details",
+        "items",
+        "subtotal",
+        "total_due"
+      ]
+    }
+  },
+  "propertyOrdering": [
+    "invoice"
+  ],
+  "required": [
+    "invoice"
+  ]
+}
