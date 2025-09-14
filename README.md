@@ -230,29 +230,3 @@ Authorization: Bearer {token}
 GET /api/invoices/{id}
 Authorization: Bearer {token}
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🎯 Roadmap
-
-Future enhancements planned:
-- Bulk invoice processing
-- Invoice editing capabilities
-- Export functionality (PDF, CSV)
-- Advanced analytics
-- Multi-language support
-- Payment tracking integration
-
----
-
-**Built with ❤️ using Next.js, Supabase, and Google Gemini AI**# invoice-scanner
