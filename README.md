@@ -243,15 +243,6 @@ Authorization: Bearer {token}
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Support
-
-If you encounter any issues or have questions:
-
-1. Check the troubleshooting section above
-2. Review the implementation guide in `implementation_guide.md`
-3. Open an issue in the repository
-4. Check Supabase and Gemini API documentation
-
 ## 🎯 Roadmap
 
 Future enhancements planned:
